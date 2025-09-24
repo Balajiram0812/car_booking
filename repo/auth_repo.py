@@ -1,15 +1,13 @@
-from fastapi import APIRouter,Depends,HTTPException
-from schemas import login,Token
 from sqlalchemy.orm import Session
-from database import get_db
-from model import register
-from hashing import hash
-from jwttoken import  create_access_token
+from fastapi import HTTPException, status
+from model.model import register
+from auth.hashing import hash       
+from auth.jwttoken import create_access_token
+from dto.schemas import Token   
 
-router=APIRouter(tags=["auth"])
 
-@router.post("/login")
-def login(request: login, db: Session = Depends(get_db)):
+
+def login_user(request,db):
     userlogin = db.query(register).filter(register.email == request.username).first()
 
     if not userlogin:
@@ -22,4 +20,3 @@ def login(request: login, db: Session = Depends(get_db)):
         data={"sub": userlogin.email, "name": userlogin.first_name, "last_name":userlogin.last_name,"genter":userlogin.genter, "role":userlogin.role}
     )
     return Token(access_token=access_token, token_type="bearer")
-

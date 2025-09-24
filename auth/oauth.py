@@ -1,11 +1,11 @@
 from fastapi import Depends, HTTPException,status
-import jwttoken
-from model import register
+import auth.jwttoken as jwttoken
+from model.model import register
 from fastapi.security import OAuth2PasswordBearer
 # from jose import JWTError
-from schemas import TokenData
+from dto.schemas import TokenData
 from database import SessionLocal,engine
-from jwttoken import verify_tokken,jwt,SECRET_KEY, ALGORITHM
+from auth.jwttoken import verify_tokken,jwt,SECRET_KEY, ALGORITHM
 
 
 session = SessionLocal(bind=engine)

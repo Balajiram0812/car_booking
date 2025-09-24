@@ -1,7 +1,7 @@
 from datetime import timedelta,datetime,timezone
 from jose import jwt,JWTError
 from fastapi import HTTPException
-from schemas import TokenData
+from dto.schemas import TokenData
 
 SECRET_KEY = "f5a7296ca7af6463de48572ac11b0d1f4cac7e530aeca1ba1b863f76e2b68361"
 ALGORITHM = "HS256"

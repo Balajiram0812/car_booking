@@ -1,16 +1,13 @@
 from fastapi import APIRouter,Depends,HTTPException, status
 from sqlalchemy.orm import Session
 from database import get_db
-from schemas import booking_details_schemas,booked_car,booked_car_details
+from dto.schemas import booking_details_schemas,booked_car,booked_car_details
 from datetime import datetime
-from model import Booking_Details,CarDetails
-
-
+from model.model import Booking_Details,CarDetails
 
 router=APIRouter(
     tags=["booking details"]
 )
-
 
 @router.post("/booking_details",  response_model=booked_car)
 def booking_details(request:booking_details_schemas, db: Session=Depends(get_db)):

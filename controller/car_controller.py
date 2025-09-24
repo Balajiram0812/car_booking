@@ -1,9 +1,9 @@
 from fastapi import APIRouter,Depends,status
 from sqlalchemy.orm import Session
 from database import get_db
-from model import CarDetails
-from schemas import add_car
-from oauth import get_current_user,role_checker
+from model.model import CarDetails
+from dto.schemas import add_car
+from auth.oauth import get_current_user,role_checker
 
 router=APIRouter(
     tags=["Car"],

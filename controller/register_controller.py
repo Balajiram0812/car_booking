@@ -1,9 +1,9 @@
 from fastapi import APIRouter,Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db
-from schemas import register_schemas,register_responce
-from model import register
-import hashing 
+from dto.schemas import register_schemas,register_responce
+from model.model import register
+import auth.hashing as hashing 
 
 router=APIRouter(
     tags=["register"]
