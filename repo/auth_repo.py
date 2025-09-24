@@ -5,8 +5,6 @@ from auth.hashing import hash
 from auth.jwttoken import create_access_token
 from dto.schemas import Token   
 
-
-
 def login_user(request,db):
     userlogin = db.query(register).filter(register.email == request.username).first()
 

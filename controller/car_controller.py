@@ -4,6 +4,7 @@ from database import get_db
 from model.model import CarDetails
 from dto.schemas import add_car
 from auth.oauth import get_current_user,role_checker
+from repo.car_repo import create_car
 
 router=APIRouter(
     tags=["Car"],
@@ -12,23 +13,8 @@ router=APIRouter(
 
 @router.post("/add", status_code=status.HTTP_201_CREATED)
 def add_car_details(request: add_car, db:Session=Depends(get_db),  current_user: dict = Depends((role_checker(["admin"])))):
-    new_car = CarDetails(
-        model_name=request.model_name,
-        manufacture_year=request.manufacture_year,
-        insurance_cover=request.insurance_cover,
-        color=request.color,
-        engine=request.engine,
-        power=request.power,
-        torque=request.torque,
-        variant=request.variant,
-        price=request.price,
-        tax=request.tax
-    )
-    db.add(new_car)
-    db.commit()
-    db.refresh(new_car) 
-
-    return new_car
+    return create_car(request,db)
+    
 
 @router.get("/get_all")
 def get_all_car(db:Session=Depends(get_db), current_user: dict = Depends(get_current_user)):
